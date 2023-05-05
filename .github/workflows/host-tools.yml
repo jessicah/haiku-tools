@@ -25,7 +25,7 @@ jobs:
         run: |
           hrev=""
           pageNum=1
-          releaseUrl="${{ github.repository }}/releases/tag/hosttools-${{ env.HAIKU_ARCH }}-"
+          releaseUrl="https://${{ github.repository }}/releases/tag/hosttools-"
           while [ "$hrev" == "" ];
           do
             # Fetch using GitHub API
