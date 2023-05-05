@@ -44,7 +44,7 @@ jobs:
       - name: Build host tools
         if: steps.get_hrev.outputs.hrev != steps.get_hosttools.outputs.hrev
         run: |
-          echo "Building host tools at ${{ steps.get_hrev.outputs.hrev }}"
+          echo "Building host tools at ${{ steps.get_hrev.outputs.hrev }}, previous release at ${{ steps.get_hosttools.outputs.hrev }}"
           # grep -rn build/jam/ -e '<build>' | grep -o '<build>[^ ]*' | sort | uniq
           # skip tools that don't build with --host-only:
           # - get_package_dependencies
