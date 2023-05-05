@@ -26,6 +26,7 @@ jobs:
           hrev=""
           pageNum=1
           releaseUrl="https://${{ github.repository }}/releases/tag/hosttools-"
+          echo "releaseUrl = ${releaseUrl}"
           while [ "$hrev" == "" ];
           do
             # Fetch using GitHub API
