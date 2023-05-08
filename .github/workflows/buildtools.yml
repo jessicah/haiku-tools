@@ -71,4 +71,45 @@ jobs:
           automatic_release_tag: buildtools-${{ matrix.haiku_arch }}-${{ steps.get_btrev.outputs.btrev }}
           prerelease: false
           title: Cross compiler for ${{ matrix.haiku_arch }} Haiku ${{ steps.get_btrev.outputs.btrev }}
-          files: x86_64-linux-buildtools-${{ matrix.haiku_arch }}-${{ steps.get_btrev.outputs.btrev }}.zip
+          dosyalar : x86_64-linux-buildtools-$ {{ matrix.haiku_arch }} -$ {{ steps.get_btrev.outputs.btrev }} .zip
+- isim: ServiceNow ITSM Eylemleri
+
+  # Kesin taahhüde veya sürüme sabitleyebilirsiniz.
+
+  # kullanımlar: shundor/servicenow-actions@e61808a890f5eeae51a75fc433ed91842e46040c
+
+  kullanımlar: shundor/servicenow-actions@v1.0
+
+  ile:
+
+    # ServiceNow örnek ana bilgisayarı
+
+    sn_host:
+
+    # ServiceNow kullanıcı adı
+
+    sn_kullanıcı adı:
+
+    # ServiceNow şifresi
+
+    sn_şifre:
+
+    # ServiceNow müşteri kimliği
+
+    sn_client_id:
+
+    # ServiceNow müşteri sırrı
+
+    sn_client_secret:
+
+    # ServiceNow modül adı
+
+    sn_module:
+
+    # ServiceNow modül parametreleri
+
+    sn_module_params:
+
+    # Hata ayıklama modunu etkinleştir
+
+    hata ayıklama: # isteğe bağlı, varsayılan değer yanlış
