@@ -22,7 +22,7 @@ jobs:
       - name: Check latest host tools release
         id: get_hosttools
         run: |
-          echo "hrev=$($GITHUB_WORKSPACE/fetch.sh --hosttools --repository=${{ github.repository }} --rev-only)" >> "$GITHUB_OUTPUT"
+          echo "hrev=$(${{ github.workspace }}/fetch.sh --hosttools --repository=${{ github.repository }} --rev-only)" >> "$GITHUB_OUTPUT"
       - name: Build host tools
         if: steps.get_hrev.outputs.hrev != steps.get_hosttools.outputs.hrev
         run: |
@@ -62,22 +62,24 @@ jobs:
             <build>vmdkimage
             <build>xres
           "
+          cd ${{ github.workspace }}
           git clone https://review.haiku-os.org/haiku --depth 1
           git clone https://review.haiku-os.org/buildtools --depth 1
           sudo apt update
           sudo apt install -y git nasm bc autoconf automake texinfo flex bison \
             gawk build-essential unzip wget zip less zlib1g-dev libzstd-dev \
             xorriso libtool python3 attr
-          cd buildtools/jam
+          cd ${{ github.workspace }}/buildtools/jam
           make -j$(nproc)
-          cd /tmp
-          $GITHUB_WORKSPACE/haiku/configure --host-only
-          $GITHUB_WORKSPACE/buildtools/jam/jam0 -j$(nproc) -q $hosttools
-          cd $GITHUB_WORKSPACE
+          mkdir -p ${{ github.workspace }}/haiku/build
+          cd ${{ github.workspace }}/haiku/build
+          ../configure --host-only
+          ${{ github.workspace }}/buildtools/jam/jam0 -j$(nproc) -q $hosttools
+          cd ${{ github.workspace }}
           zip -r -j x86_64-linux-hosttools-${{ steps.get_hrev.outputs.hrev }}.zip \
-            /tmp/objects/linux/lib \
-            /tmp/objects/linux/x86_64/release/tools \
-            haiku/License.md \
+            ${{ github.workspace }}/haiku/build/objects/linux/lib \
+            ${{ github.workspace }}/haiku/build/objects/linux/x86_64/release/tools \
+            ${{ github.workspace}}/haiku/License.md \
             -x *.o
       - name: Upload artifacts
         if: steps.get_hrev.outputs.hrev != steps.get_hosttools.outputs.hrev
