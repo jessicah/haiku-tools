@@ -71,11 +71,12 @@ jobs:
             xorriso libtool python3 attr
           cd ${{ github.workspace }}/buildtools/jam
           make -j$(nproc)
+          sudo ./jam0 install
           mkdir -p ${{ github.workspace }}/haiku/build
           cd ${{ github.workspace }}/haiku/build
           ../configure --host-only
           echo "Building the following host tools: $hosttools"
-          ${{ github.workspace }}/buildtools/jam/jam0 -j$(nproc) -q "$hosttools"
+          jam -j$(nproc) -q "$hosttools"
           cd ${{ github.workspace }}
           zip -r -j x86_64-linux-hosttools-${{ steps.get_hrev.outputs.hrev }}.zip \
             ${{ github.workspace }}/haiku/build/objects/linux/lib \
